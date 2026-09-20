@@ -1,0 +1,52 @@
+name: update
+
+# Re-render bucket/causari.json from the latest causari release. Runs every
+# six hours and on demand; no cross-repo token needed.
+
+on:
+  schedule:
+    - cron: "37 */6 * * *"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "release tag (default: latest)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: render
+        run: python3 scripts/render.py ${{ inputs.tag }}
+      - name: commit if changed
+        run: |
+          if git diff --quiet; then echo "manifest unchanged"; exit 0; fi
+          git config user.name "causari-bucket[bot]"
+          git config user.email "noreply@causari.dev"
+          git add bucket/causari.json
+          git commit -m "causari: $(python3 -c 'import json;print(json.load(open("bucket/causari.json"))["version"])')"
+          git push
+
+  install:
+    needs: render
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - name: scoop install from this bucket
+        shell: pwsh
+        run: |
+          Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+          irm get.scoop.sh -outfile install.ps1
+          .\install.ps1 -RunAsAdmin
+          $env:Path = "$env:USERPROFILE\scoop\shims;$env:Path"
+          scoop bucket add causari "$PWD"
+          scoop install causari/causari
+          causari --version
+          re --version
