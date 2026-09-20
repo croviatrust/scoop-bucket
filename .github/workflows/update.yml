@@ -46,7 +46,8 @@ jobs:
           irm get.scoop.sh -outfile install.ps1
           .\install.ps1 -RunAsAdmin
           $env:Path = "$env:USERPROFILE\scoop\shims;$env:Path"
-          scoop bucket add causari "$PWD"
-          scoop install causari/causari
+          # install straight from the rendered manifest (a bucket must be a git URL,
+          # and the just-pushed commit may not be what this checkout has)
+          scoop install "$PWD\bucket\causari.json"
           causari --version
           re --version
