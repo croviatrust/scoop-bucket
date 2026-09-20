@@ -1,19 +1,13 @@
 {
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "AI-written code has no author. It has causes. Causari proves them.",
   "homepage": "https://causari.dev",
   "license": "Apache-2.0",
-  "url": "https://github.com/croviatrust/causari/releases/download/v0.1.5/re-v0.1.5-x86_64-pc-windows-msvc.zip",
-  "hash": "17b08db25e21ec430d8b7af3dc92bf0cc946ccc71571eb404470fb24a85162d5",
+  "url": "https://github.com/croviatrust/causari/releases/download/v0.2.0/causari-v0.2.0-x86_64-pc-windows-msvc.zip",
+  "hash": "b81bff643289bbb3d426e7a742a83c536cbacfc23a2f4e210877e43a33c12b2b",
   "bin": [
-    [
-      "re.exe",
-      "re"
-    ],
-    [
-      "re.exe",
-      "causari"
-    ]
+    "causari.exe",
+    "re.exe"
   ],
   "checkver": {
     "github": "https://github.com/croviatrust/causari"
