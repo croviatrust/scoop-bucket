@@ -41,7 +41,7 @@ def main() -> int:
     both = name.startswith("causari-")
     manifest = {
         "version": version,
-        "description": "AI-written code has no author. It has causes. Causari proves them.",
+        "description": "AI-written code has no author. It has causes. Causari records them.",
         "homepage": "https://causari.dev",
         "license": "Apache-2.0",
         "url": f"{base}/{name}",
