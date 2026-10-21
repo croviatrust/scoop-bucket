@@ -1,7 +1,7 @@
 # croviatrust/scoop-bucket
 
 Scoop bucket for [Causari](https://causari.dev): AI-written code has no
-author. It has causes. Causari proves them.
+author. It has causes. Causari records them.
 
 ```powershell
 scoop bucket add causari https://github.com/croviatrust/scoop-bucket
